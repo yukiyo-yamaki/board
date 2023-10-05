@@ -95,13 +95,13 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@ModelAttribute("form") @Validated Post form, BindingResult result, Model model) {
-		// バリデーションエラーがなければ投稿を更新する
+		// バリデーションエラーがなければ投稿を更新
 		if (!result.hasErrors()) {
-			// 更新するデータをデータベースから取得する
+			// 更新するデータをデータベースから取得
 			Optional<Post> post = repository.findById(form.getId());
-			// 投稿されたデータで更新されたPostを作る
+			// 投稿されたデータで更新されたPostを作成
 			Post updated = PostFactory.updatePost(post.get(), form);
-			// データベースを更新する
+			// データベースを更新
 			repository.saveAndFlush(updated);
 		}
 		model.addAttribute("form", PostFactory.newPost());	
